@@ -10,13 +10,10 @@ import java.io.IOException;
 
 /**
  * Hello world!
- *
  */
-public class App 
-{
+public class App {
 
-    public static void main(String[] args) throws IOException, KeeperException, InterruptedException
-    {
+    public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
         ZooKeeper zk = new ZooKeeper("localhost:2181", 3000, new Watcher() {
 
             @Override
@@ -27,9 +24,9 @@ public class App
 
         });
 
-        Stat e=zk.exists("/yangqi_test",null);
+        Stat e = zk.exists("/yangqi_test", null);
 
-        System.out.println("exists "+e);
+        System.out.println("exists " + e);
 
         zk.setData("/yangqi_test", "Data of node 3".getBytes(), -1);
     }

@@ -20,20 +20,21 @@ import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 
 /**
- * 类Master.java的实现描述：TODO 类实现描述 
+ * 类Master.java的实现描述：TODO 类实现描述
+ *
  * @author yangqi Jan 1, 2014 1:37:01 PM
  */
 public class Master implements Watcher, Runnable {
 
     private ZooKeeper zk;
 
-    private String    connectString;
+    private String connectString;
 
-    private String    serverId;
+    private String serverId;
 
     private static final String MASTER_PATH = "/master";
 
-    public Master(String connectString,String serverId) {
+    public Master(String connectString, String serverId) {
         this.connectString = connectString;
         this.serverId = serverId;
     }
@@ -59,10 +60,10 @@ public class Master implements Watcher, Runnable {
         }
     }
 
-    public void createMaterNode(){
+    public void createMaterNode() {
         try {
             zk.create(MASTER_PATH, serverId.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
-                                        CreateMode.EPHEMERAL);
+                    CreateMode.EPHEMERAL);
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -70,7 +71,7 @@ public class Master implements Watcher, Runnable {
 
     public boolean checkForMaster() {
 
-        Stat stat=new Stat();
+        Stat stat = new Stat();
         byte[] data = null;
         try {
             data = zk.getData(MASTER_PATH, false, stat);

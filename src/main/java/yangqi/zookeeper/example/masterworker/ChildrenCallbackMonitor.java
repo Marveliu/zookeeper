@@ -25,7 +25,6 @@ public class ChildrenCallbackMonitor {
         final ZooKeeper zookeeper = new ZooKeeper("localhost:2181", 2000, null);
 
         final ChildrenCallback callback = new ChildrenCallback() {
-
             @Override
             public void processResult(int rc, String path, Object ctx, List<String> children) {
                 System.out.println(children);
@@ -35,7 +34,6 @@ public class ChildrenCallbackMonitor {
         };
 
         Watcher watcher = new Watcher() {
-
             @Override
             public void process(WatchedEvent event) {
                 System.out.println("Event is " + event);

@@ -18,7 +18,8 @@ import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 
 /**
- * 类AsynCreate.java的实现描述：TODO 类实现描述 
+ * 类AsynCreate.java的实现描述：TODO 类实现描述
+ *
  * @author yangqi Jan 2, 2014 9:39:02 PM
  */
 public class AsynCreate {
@@ -32,30 +33,28 @@ public class AsynCreate {
         ZooKeeper zookeeper = new ZooKeeper("localhost:2181", 200000, null);
 
         zookeeper.create("/mas", "sid-o2".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL,
-                         new StringCallback() {
+                new StringCallback() {
+                    @Override
+                    public void processResult(int rc, String path, Object ctx, String name) {
+                        Code code = Code.get(rc);
+                        switch (code) {
+                            case OK:
+                                System.out.println(code);
+                                break;
+                            case NODEEXISTS:
+                                System.out.println(code);
+                                break;
+                            case SESSIONEXPIRED:
+                                System.out.println(code);
+                                break;
+                            default:
+                                System.out.println("unknow " + code);
+                        }
 
-            @Override
-            public void processResult(int rc, String path, Object ctx, String name) {
-                Code code = Code.get(rc);
-                switch (code) {
-                    case OK:
-                        System.out.println(code);
-                        break;
-                    case NODEEXISTS:
-                        System.out.println(code);
-                        break;
-                    case SESSIONEXPIRED:
-                        System.out.println(code);
-                        break;
-                    default:
-                        System.out.println("unknow " + code);
-                }
-
-            }
-        }, null);
+                    }
+                }, null);
 
         DataCallback callback = new DataCallback() {
-
             @Override
             public void processResult(int rc, String path, Object ctx, byte[] data, Stat stat) {
                 Code code = Code.get(rc);

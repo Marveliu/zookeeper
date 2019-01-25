@@ -20,17 +20,17 @@ import org.apache.zookeeper.data.Stat;
 
 public class DataMonitor implements Watcher, StatCallback {
 
-    ZooKeeper           zk;
+    ZooKeeper zk;
 
-    String              znode;
+    String znode;
 
-    Watcher             chainedWatcher;
+    Watcher chainedWatcher;
 
-    boolean             dead;
+    boolean dead;
 
     DataMonitorListener listener;
 
-    byte                prevData[];
+    byte prevData[];
 
     public DataMonitor(ZooKeeper zk, String znode, Watcher chainedWatcher, DataMonitorListener listener) {
         this.zk = zk;
@@ -41,7 +41,6 @@ public class DataMonitor implements Watcher, StatCallback {
         // to be completely event driven
         zk.exists(znode, true, this, null);
     }
-
 
 
     public void process(WatchedEvent event) {
@@ -101,7 +100,7 @@ public class DataMonitor implements Watcher, StatCallback {
                 exists = true;
                 break;
             case Code.NoNode:
-                // É¾³ý½áµãµÄÊ±ºò
+                // É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
                 exists = false;
                 break;
             case Code.SessionExpired:
