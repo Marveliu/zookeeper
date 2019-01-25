@@ -126,9 +126,7 @@ public class AsynMaster implements Watcher, Runnable {
             }
 
         };
-
         zk.getData(MASTER_PATH, true, callback, null);
-
     }
 
     public void registerForMaster() {
@@ -138,12 +136,8 @@ public class AsynMaster implements Watcher, Runnable {
 
     @Override
     public void run() {
-
         startZK();
-
         registerForMaster();
-
-
     }
 
     private static void sleep(int seconds) {

@@ -14,23 +14,18 @@ import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
 
-/**
- * ��Executor.java��ʵ��������TODO ��ʵ������
- *
- * @author yangqi 2013-5-30 ����10:48:09
- */
 
 public class Executor implements Watcher, Runnable, DataMonitorListener {
 
-    String      znode;
+    String znode;
 
     DataMonitor dm;
 
-    ZooKeeper   zk;
+    ZooKeeper zk;
 
-    String      exec[];
+    String exec[];
 
-    Process     child;
+    Process child;
 
     public Executor(String hostPort, String znode, String exec[]) throws KeeperException, IOException {
         this.exec = exec;
@@ -42,11 +37,11 @@ public class Executor implements Watcher, Runnable, DataMonitorListener {
      * @param args
      */
     public static void main(String[] args) {
-        args = new String[] { "localhost:2181", "/yangqi_test" };
+        args = new String[]{"localhost:2181", "/yangqi_test"};
 
         String hostPort = args[0];
         String znode = args[1];
-        String exec[] = new String[] { "date" };
+        String exec[] = new String[]{"date"};
         try {
             new Executor(hostPort, znode, exec).run();
         } catch (Exception e) {
@@ -56,7 +51,7 @@ public class Executor implements Watcher, Runnable, DataMonitorListener {
 
     /***************************************************************************
      * We do process any events ourselves, we just need to forward them on.
-     * 
+     *
      * @see org.apache.zookeeper.Watcher#process(org.apache.zookeeper.proto.WatcherEvent)
      */
     @Override
@@ -64,6 +59,7 @@ public class Executor implements Watcher, Runnable, DataMonitorListener {
         dm.process(event);
     }
 
+    @Override
     public void run() {
         try {
             synchronized (this) {
@@ -90,7 +86,7 @@ public class Executor implements Watcher, Runnable, DataMonitorListener {
 
         OutputStream os;
 
-        InputStream  is;
+        InputStream is;
 
         StreamWriter(InputStream is, OutputStream os) {
             this.is = is;

@@ -15,7 +15,6 @@ public class App {
 
     public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
         ZooKeeper zk = new ZooKeeper("localhost:2181", 3000, new Watcher() {
-
             @Override
             public void process(WatchedEvent event) {
                 System.out.println(event);
